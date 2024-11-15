@@ -15,6 +15,11 @@ const MyWork = () => {
             })}
 
           </div>
+          <div className="mywork-showmore">
+            <p>Show More</p>
+          </div>
+
+
       </div>
   )
 }
