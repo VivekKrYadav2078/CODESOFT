@@ -3,7 +3,8 @@ import { Button } from '@material-tailwind/react'
 import {
   BrowserRouter as Router,
   Route,
-  Routes
+  Routes,
+  Navigate
 } from 'react-router-dom'
 import Home from "./pages/home/Home";
 import Blog from "./pages/blog/Blog";
@@ -17,6 +18,15 @@ import { Toaster } from 'react-hot-toast';
 import CreateBlog from './pages/admin/createBlog/CreateBlog';
 
 
+export const ProtectedRouteForAdmin = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if (user?.user?.email === "testuser@gmail.com") {
+    return children
+  }
+  else {
+    return <Navigate to={'/adminlogin'} />
+  }
+}
 
 function App() {
   return (
@@ -44,12 +54,3 @@ function App() {
 
 export default App
 
-export const ProtectedRouteForAdmin = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if (user?.user?.email === "testuser@gmail.com") {
-    return children
-  }
-  else {
-    return <Navigate to={'/adminlogin'} />
-  }
-}

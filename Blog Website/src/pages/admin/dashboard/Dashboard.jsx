@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const context = useContext(myContext);
-  const { mode, getAllBlog } = context;
+  const { mode, getAllBlog ,deleteBlogs} = context;
 
   console.log(getAllBlog)
 
@@ -131,7 +131,7 @@ function Dashboard() {
 
                 {/* tbody  */}
                 {getAllBlog.length > 0 ? <> {getAllBlog.map((item, index) => {
-                  const {thumbnail,date}=item;
+                  const {thumbnail,date,id}=item;
                   return (
                     <tbody key={index}>
                       <tr className=" border-b-2" style={{ background: mode === 'dark' ? 'rgb(30, 41, 59)' : 'white' }}>
@@ -158,7 +158,9 @@ function Dashboard() {
                           {date}
                         </td>
                         {/* Delete Blog  */}
-                        <td style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">
+                        <td 
+                        onClick={()=>deleteBlogs(id)}
+                        style={{ color: mode === 'dark' ? 'white' : 'black' }} className="px-6 py-4">
                           <button className=' px-4 py-1 rounded-lg text-white font-bold bg-red-500'>
                           </button>
                         </td>
