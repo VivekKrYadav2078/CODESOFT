@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button } from '@material-tailwind/react'
-import {BrowserRouter as Router,
-        Route,
-        Routes
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
 } from 'react-router-dom'
 import Home from "./pages/home/Home";
 import Blog from "./pages/blog/Blog";
@@ -27,14 +28,28 @@ function App() {
           <Route path="/allblogs" element={<AllBlogs />} />
           <Route path="/bloginfo/:id" element={<BlogInfo />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/createblog" element={<CreateBlog />} />
+          <Route path="/dashboard" element={<ProtectedRouteForAdmin>
+            <Dashboard />
+          </ProtectedRouteForAdmin>} />
+          <Route path="/createblog" element={<ProtectedRouteForAdmin>
+            <CreateBlog />
+          </ProtectedRouteForAdmin>} />
           <Route path="/*" element={<NoPage />} />
         </Routes>
-        <Toaster/>
+        <Toaster />
       </Router>
     </MyState>
   )
 }
 
 export default App
+
+export const ProtectedRouteForAdmin = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if (user?.user?.email === "testuser@gmail.com") {
+    return children
+  }
+  else {
+    return <Navigate to={'/adminlogin'} />
+  }
+}

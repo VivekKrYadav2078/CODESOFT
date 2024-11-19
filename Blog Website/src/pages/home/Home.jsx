@@ -10,8 +10,7 @@ const Home = () => {
   return (
     <Layout>
       <HeroSection/>
-      <BlogPostCard/>
-      
+      <BlogPostCard/>      
     </Layout>
   )
 }
